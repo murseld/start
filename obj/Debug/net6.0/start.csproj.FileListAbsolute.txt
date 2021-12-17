@@ -1,0 +1,17 @@
+C:\projetcs\dotnet\start\bin\Debug\net6.0\start.exe
+C:\projetcs\dotnet\start\bin\Debug\net6.0\start.deps.json
+C:\projetcs\dotnet\start\bin\Debug\net6.0\start.runtimeconfig.json
+C:\projetcs\dotnet\start\bin\Debug\net6.0\start.dll
+C:\projetcs\dotnet\start\bin\Debug\net6.0\ref\start.dll
+C:\projetcs\dotnet\start\bin\Debug\net6.0\start.pdb
+C:\projetcs\dotnet\start\obj\Debug\net6.0\start.GlobalUsings.g.cs
+C:\projetcs\dotnet\start\obj\Debug\net6.0\start.csproj.AssemblyReference.cache
+C:\projetcs\dotnet\start\obj\Debug\net6.0\start.GeneratedMSBuildEditorConfig.editorconfig
+C:\projetcs\dotnet\start\obj\Debug\net6.0\start.AssemblyInfoInputs.cache
+C:\projetcs\dotnet\start\obj\Debug\net6.0\start.AssemblyInfo.cs
+C:\projetcs\dotnet\start\obj\Debug\net6.0\start.csproj.CoreCompileInputs.cache
+C:\projetcs\dotnet\start\obj\Debug\net6.0\start.dll
+C:\projetcs\dotnet\start\obj\Debug\net6.0\ref\start.dll
+C:\projetcs\dotnet\start\obj\Debug\net6.0\start.pdb
+C:\projetcs\dotnet\start\obj\Debug\net6.0\start.genruntimeconfig.cache
+C:\projetcs\dotnet\start\bin\Debug\net6.0\Newtonsoft.Json.dll
