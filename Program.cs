@@ -4,6 +4,9 @@ namespace HelloWorld
 {
     class Program
     {
+
+        static List<string> packageList = new List<string>();
+        static List<string> documentTypeList = new List<string>();
         static void Main(string[] args)
         {
 
@@ -22,11 +25,7 @@ namespace HelloWorld
             {
                 Console.WriteLine("{0} is not a valid file or directory.", path);
             }
-
-            foreach (var item in packageList)
-            {
-                Console.WriteLine(item);
-            }
+            Log();
         }
 
         // Process all files in the directory passed in, recurse on any directories 
@@ -52,8 +51,6 @@ namespace HelloWorld
                     //Console.WriteLine(subdirectory.Split('\\')[7]);
                     packageName = dirName[7];
                 }
-
-
                 ProcessDirectory(subdirectory);
                 //Console.WriteLine(subdirectory);
             }
@@ -65,34 +62,69 @@ namespace HelloWorld
             if (Path.GetFileName(path) == "flow.xml")
             {
 
-                GetXmlNode(path,"INVOKE");
-            } else if (Path.GetFileName(path) == "node.ndf")
+                GetFlowDependency(path);
+            }
+            else if (Path.GetFileName(path) == "node.ndf")
             {
 
-                //GetXmlNode(path);
+                GetDocumentTypeDependency(path);
             }
-
         }
 
-        static List<string> packageList = new List<string>();
-        public static void GetXmlNode(string path,string tagname)
-        {
-            XmlDocument d = new XmlDocument();
-            d.Load(path);
-            XmlNodeList n = d.GetElementsByTagName(tagname);
-            if (n != null)
-            {
-                foreach (XmlNode curr in n)
-                {
-                    var packageName = curr.Attributes["SERVICE"].Value;
-                    if (!packageList.Any(p => p == packageName))
-                    {
 
-                        packageList.Add(packageName);
+        public static void GetFlowDependency(string path)
+        {
+            string[] attributes = { "INVOKE", "MAPINVOKE" };
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(path);
+            foreach (var attribute in attributes)
+            {
+                XmlNodeList n = xmlDoc.GetElementsByTagName(attribute);
+                if (n != null)
+                {
+                    foreach (XmlNode curr in n)
+                    {
+                        var packageName = curr?.Attributes?["SERVICE"]?.Value;
+                        if (!packageList.Any(p => p == packageName) && packageName != null)
+                        {
+
+                            packageList.Add(packageName);
+                        }
+                        //Console.WriteLine("--" + curr.Attributes["SERVICE"].Value);
                     }
-                    //Console.WriteLine("--" + curr.Attributes["SERVICE"].Value);
                 }
             }
+        }
+
+        public static void GetDocumentTypeDependency(string path)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(path);
+            XmlNodeList n = xmlDoc.GetElementsByTagName("rec_ref");
+            if (xmlDoc.DocumentElement != null)
+            {
+                XmlNode? node = xmlDoc.DocumentElement.SelectSingleNode("//value[@name='rec_ref']");
+                if (node != null && !documentTypeList.Any(p => p == node.InnerText))
+                {
+                    documentTypeList.Add(node.InnerText);
+                }
+            }
+        }
+
+        private static void Log()
+        {
+            Console.WriteLine("-------------Packages List-------------");
+            foreach (var item in packageList)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("--------------------------------------");
+            Console.WriteLine("----------DocumentTypes List----------");
+            foreach (var item in documentTypeList)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("--------------------------------------");
         }
     }
 }
